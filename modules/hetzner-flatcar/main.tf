@@ -16,14 +16,14 @@ terraform {
       version = "~> 2.2.0"
     }
 
-    null = {
-      source  = "hashicorp/null"
-      version = "~> 3.0.0"
-    }
-
     docker = {
       source = "kreuzwerker/docker"
       version = "2.11.0"
+    }
+
+    http = {
+      source = "salrashid123/http-full"
+      version = "~> 1.2.0"
     }
   }
 }

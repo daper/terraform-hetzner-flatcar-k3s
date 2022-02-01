@@ -24,7 +24,7 @@ resource "hcloud_server" "servers" {
   # boot into rescue OS
   rescue = "linux64"
   # dummy value for the OS because Flatcar is not available
-  image       = "debian-9"
+  image       = "debian-11"
   server_type = var.servers_type
   datacenter  = var.datacenter
 
@@ -48,11 +48,15 @@ resource "hcloud_server" "servers" {
   }
 }
 
-resource "null_resource" "first_reboot_servers" {
+data "http" "first_reboot_servers" {
   count = var.machines
+  url = "https://api.hetzner.cloud/v1/servers/${hcloud_server.servers[count.index].id}/actions/reboot"
 
-  provisioner "local-exec" {
-    command = "hcloud server reboot ${hcloud_server.servers[count.index].name}"
+  method = "POST"
+
+  request_headers = {
+    content-type = "application/json"
+    authorization = "Bearer ${var.HCLOUD_TOKEN}"
   }
 
   depends_on = [

@@ -1,7 +1,6 @@
 This is a terraform module that deploys a k3s cluster on hetzner by using flatcar as the OS for the underlying machines.
 
 ### Requirements
-- **hcloud** command must be installed and configured previously.
 - **kubectl** command must be installed.
 
 Configure your environment with HCLOUD_TOKEN var to access hetzner's API.
